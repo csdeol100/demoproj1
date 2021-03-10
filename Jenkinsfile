@@ -9,11 +9,12 @@ pipeline{
         }
         stage('Build FrontEnd'){
             agent {
-                docker { image 'node:current-alpine3.13'}
+                docker { 
+                    image 'node:current-alpine3.13'
+                    args '-v $HOME/.m2:/root/.m2'
+                    }
             }
-            environment {
-                    HOME = '.'
-            }
+
             steps{
                 sh 'npm install'
                 sh 'npm build'
@@ -22,7 +23,10 @@ pipeline{
         }
         stage('Build BackEnd'){
             agent{
-                    docker {image 'maven:3.6.3-adoptopenjdk-8'}
+                    docker {
+                        image 'maven:3.6.3-adoptopenjdk-8'
+                        args '-v $HOME/.m2:/root/.m2'
+                        }
                 }
             steps{
                 sh 'mvn package'
