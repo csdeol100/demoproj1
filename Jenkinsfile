@@ -7,7 +7,7 @@ pipeline{
                 checkout scm
             }
         }
-        stage('Build FrontEnd'){
+        stage('Build FrontEnd of an application'){
             agent {
                 docker { 
                     image 'node:current-alpine3.13'
